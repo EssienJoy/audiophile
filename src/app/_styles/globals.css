@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary-orange: #D87D4A;
+  --color-secondary-orange: #fBAF85;
+
+  --color-primary-white: #ffffff;
+  --color-secondary-white: #fafafa;
+
+  --color-primary-grey: #f1f1f1;
+
+  --color-primary-black: #000000;
+  --color-secondary-black: #101010;
+
+  /* Font sizes */
+  --text-size-h1: 3.5rem;
+  --text-size-h2: 2.5rem;
+  --text-size-h3: 2rem;
+  --text-size-h4: 1.75rem;
+  --text-size-h5: 1.5rem;
+  --text-size-h6: 1.125rem;
+  --text-overline: 14px;
+  --text-subtitle: 13px;
+
+  /* Line heights */
+  --leading-h1: 3.625rem;
+  --leading-h2: 2.75rem;
+  --leading-h3: 2.25rem;
+  --leading-h4: 2.375rem;
+  --leading-h5: 2.0625rem;
+  --leading-h6: 1.5rem;
+  --leading-overline: 24px;
+  --leading-subtitle: 13px;
+
+  /* Character Spacing */
+  --tracking-h1: 2px;
+  --tracking-h2: 1.5px;
+  --tracking-h3: 1.15px;
+  --tracking-h4: 2px;
+  --tracking-h5: 1.7px;
+  --tracking-h6: 1.3px;
+  --tracking-overline: 10px;
+  --tracking-subtitle: 1px;
+
+
+  --container-max: 1110px;
+  --spacing-main: 1rem;
+}
+
+body {
+  color: var(--color-primary-black);
+  font-size: 0.9375rem;
+  font-weight: 400;
+  line-height: 1.5625rem;
+}
+
+button,
+a {
+  cursor: pointer;
+}
+
+
+.hide {
+  display: none;
+}
