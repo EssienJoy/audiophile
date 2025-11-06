@@ -4,7 +4,6 @@ import Button from "./Button";
 import { getOrCreateGuestId, useAddtoCart } from "../_context/AddtoCartContext";
 import { useState } from "react";
 import toast from "react-hot-toast";
-// import { useAddtoCart } from "../_context/AddtoCartContext";
 
 function Detail({
 	src,

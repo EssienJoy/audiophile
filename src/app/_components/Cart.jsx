@@ -2,12 +2,12 @@
 
 import { useCart } from "../_context/CartContext";
 import Link from "../_ui/Link";
-import { useAddtoCart } from "../_context/AddtoCartContext";
+import { getOrCreateGuestId, useAddtoCart } from "../_context/AddtoCartContext";
 import Image from "next/image";
 
 function Cart() {
 	const { cartContainer, cartOverlay, hideCart } = useCart();
-	const { carts } = useAddtoCart();
+	const { carts, increaseCartCount, decreaseCartCount, total } = useAddtoCart();
 
 	return (
 		<>
@@ -26,8 +26,8 @@ function Cart() {
 				</div>
 
 				<div className='h-[240px]  overflow-x-hidden overflow-y-scroll flex flex-col gap-5 '>
-					{!carts ? (
-						<p>Your Cart is Empty</p>
+					{!carts || carts.length === 0 ? (
+						<p className='h-full grid place-items-center font-bold'>Your Cart is Empty</p>
 					) : (
 						carts.map((cart) => (
 							<div
@@ -50,7 +50,14 @@ function Cart() {
 								</div>
 
 								<div className='b flex  h-[32px]  gap-2 items-center  bg-primary-grey'>
-									<button className='p-2'>
+									<button
+										className='p-2'
+										onClick={async () => {
+											await decreaseCartCount({
+												guestId: getOrCreateGuestId(),
+												productId: cart.productId,
+											});
+										}}>
 										<svg
 											width='4'
 											height='2'
@@ -67,7 +74,14 @@ function Cart() {
 
 									<p>{cart.cartCount}</p>
 
-									<button className='p-2'>
+									<button
+										className='p-2'
+										onClick={async () => {
+											await increaseCartCount({
+												guestId: getOrCreateGuestId(),
+												productId: cart.productId,
+											});
+										}}>
 										<svg
 											width='6'
 											height='6'
@@ -91,7 +105,7 @@ function Cart() {
 					<h6 className='uppercase font-bold text-size-h6 tracking-h6 leading-h6'>
 						Total
 					</h6>
-					<p>$1000</p>
+					<p>${total}</p>
 				</div>
 
 				<Link

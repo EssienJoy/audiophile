@@ -7,7 +7,6 @@ function page() {
 		<section className='py-25  bg-primary-grey'>
 			<div className='relative  flex gap-5 items-start max-w-[var(--container-max)] px-[var(--spacing-main)] mx-auto '>
 				<CheckoutBackbutton />
-
 				<CheckoutForm />
 				<CheckoutPayment />
 			</div>

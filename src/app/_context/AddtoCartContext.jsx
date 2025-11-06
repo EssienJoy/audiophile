@@ -24,6 +24,8 @@ function AddtoCartProvider({ children }) {
 	const [guestId, setGuestId] = useState("");
 	const [cartQty, setCartQty] = useState(0);
 	const addToCart = useMutation(api.cart.addToCart);
+	const increaseCartCount = useMutation(api.cart.increaseCartCount);
+	const decreaseCartCount = useMutation(api.cart.decreaseCartCount);
 
 	useEffect(() => {
 		const id = getOrCreateGuestId();
@@ -34,6 +36,9 @@ function AddtoCartProvider({ children }) {
 		api.cart.getUserCartByGuestId,
 		guestId ? { guestId } : "skip"
 	);
+
+	const total =
+		carts?.reduce((sum, item) => sum + item.price * item.cartCount, 0) ?? 0;
 
 	function increaseCartQty() {
 		setCartQty((qty) => qty + 1);
@@ -52,6 +57,9 @@ function AddtoCartProvider({ children }) {
 				decreaseCartQty,
 				addToCart,
 				setCartQty,
+				increaseCartCount,
+				decreaseCartCount,
+				total
 			}}>
 			{children}
 		</AddtoCartContext.Provider>
