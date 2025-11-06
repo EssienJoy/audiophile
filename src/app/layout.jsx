@@ -3,9 +3,10 @@ import "./_styles/globals.css";
 import Navbar from "./_components/Navbar";
 import Footer from "./_components/Footer";
 import Cart from "./_components/Cart";
-import { ConvexClientProvider } from "@/app/ConvexClientProvider";
 import { CartProvider } from "./_context/CartContext";
 import { AddtoCartProvider } from "./_context/AddtoCartContext";
+import { Toaster } from "react-hot-toast";
+import { ConvexClientProvider } from "./ConvexClientProvider";
 
 const manrope = Manrope({
 	subsets: ["latin"],
@@ -31,6 +32,7 @@ export default function RootLayout({ children }) {
 						</CartProvider>
 					</AddtoCartProvider>
 				</ConvexClientProvider>
+				<Toaster />
 			</body>
 		</html>
 	);

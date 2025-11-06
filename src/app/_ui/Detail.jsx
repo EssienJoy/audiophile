@@ -1,8 +1,10 @@
 "use client";
 import Image from "next/image";
-import Link from "./Link";
 import Button from "./Button";
-import { useAddtoCart } from "../_context/AddtoCartContext";
+import { getOrCreateGuestId, useAddtoCart } from "../_context/AddtoCartContext";
+import { useState } from "react";
+import toast from "react-hot-toast";
+// import { useAddtoCart } from "../_context/AddtoCartContext";
 
 function Detail({
 	src,
@@ -14,20 +16,31 @@ function Detail({
 	productId,
 	price,
 }) {
-	const { addToCart, cartCount, increaseQuantity, decreaseQuantity } =
+	const [loading, setLoading] = useState(false);
+	const { cartQty, increaseCartQty, decreaseCartQty, addToCart, setCartQty } =
 		useAddtoCart();
 
 	const handleAddToCart = async () => {
 		try {
-			await addToCart(productId, price, cartCount, src);
-			alert("Added to cart!");
+			setLoading(true);
+
+			await addToCart({
+				guestId: getOrCreateGuestId(),
+				productId: productId,
+				price: price,
+				cartCount: cartQty,
+				src: src,
+				title: title,
+			});
+
+			toast.success("Added to cart!");
+			setCartQty(0);
 		} catch (error) {
-			alert("Failed to add to cart");
+			toast.error("Failed to add to cart");
 		} finally {
 			setLoading(false);
 		}
 	};
-
 	return (
 		<section
 			className={`${className} flex items-center gap-25 justify-between my-[1rem]  max-w-[var(--container-max)] mx-auto px-[var(--spacing-main)] `}>
@@ -47,8 +60,8 @@ function Detail({
 				<p className='font-bold'>$ {price}</p>
 
 				<div className='flex items-center gap-5'>
-					<div className='flex py-2  gap-3 bg-primary-grey text-primary-black'>
-						<Button onClick={decreaseQuantity}>
+					<div className='flex items-center justify-center w-[120px] h-[48px]  gap-3 bg-primary-grey text-primary-black'>
+						<Button onClick={decreaseCartQty}>
 							<svg
 								width='4'
 								height='2'
@@ -63,9 +76,9 @@ function Detail({
 							</svg>
 						</Button>
 
-						<p>{cartCount}</p>
+						<p>{cartQty}</p>
 
-						<Button onClick={increaseQuantity}>
+						<Button onClick={increaseCartQty}>
 							<svg
 								width='6'
 								height='6'
@@ -82,11 +95,12 @@ function Detail({
 					</div>
 
 					<Button
-						bgColor='bg-primary-orange'
+						bgColor={loading ? "bg-secondary-orange" : "bg-primary-orange"}
 						textColor='text-primary-white'
-						className='hover:bg-secondary-orange uppercase text-sm'
-						onClick={handleAddToCart}>
-						Add to Cart
+						className='hover:bg-secondary-orange uppercase text-sm h-[48px] w-[160px]'
+						onClick={handleAddToCart}
+						disabled={loading}>
+						{loading ? "Adding..." : "Add to Cart"}
 					</Button>
 				</div>
 			</div>

@@ -1,8 +1,8 @@
+import About from "./_components/About";
 import Categories from "./_components/Categories";
-import SpeakerCategory from "@/app/_components/SpeakerCategory";
-import Products from "@/app/_components/Products";
-import About from "@/app/_components/About";
 import Home from "./_components/Home";
+import Products from "./_components/Products";
+import SpeakerCategory from "./_components/SpeakerCategory";
 
 export default function Page() {
 	return (

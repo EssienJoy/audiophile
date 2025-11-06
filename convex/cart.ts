@@ -1,125 +1,118 @@
-// convex/cart.ts
-import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
+import { query, mutation } from "./_generated/server";
+import toast from "react-hot-toast";
 
-// Add item to cart
+export const getUserCartByGuestId = query({
+	args: { guestId: v.string() },
+	handler: async (ctx, args) => {
+		const carts = await ctx.db
+			.query("cart")
+			.filter((q) => q.eq(q.field("guestId"), args.guestId))
+			.collect();
+
+		return carts;
+	},
+});
+
 export const addToCart = mutation({
 	args: {
 		guestId: v.string(),
-		productId: v.id("products"),
-		quantity: v.optional(v.number()),
+		price: v.number(),
+		cartCount: v.number(),
+		src: v.string(),
+		title: v.string(),
+		productId: v.string(),
 	},
 	handler: async (ctx, args) => {
-		const quantity = args.quantity || 1;
+		if (args.cartCount < 1) return;
 
-		// Check if item already exists in cart
 		const existing = await ctx.db
 			.query("cart")
-			.withIndex("by_guest_product", (q) =>
-				q.eq("guestId", args.guestId).eq("productId", args.productId)
+			.filter((q) =>
+				q.and(
+					q.eq(q.field("guestId"), args.guestId),
+					q.eq(q.field("productId"), args.productId)
+				)
 			)
 			.first();
 
 		if (existing) {
-			// Update quantity if already in cart
 			await ctx.db.patch(existing._id, {
-				quantity: existing.quantity + quantity,
+				cartCount: existing.cartCount + args.cartCount,
 			});
 			return existing._id;
 		} else {
-			// Add new item to cart
 			return await ctx.db.insert("cart", {
 				guestId: args.guestId,
 				productId: args.productId,
-				quantity,
-				addedAt: Date.now(),
+				price: args.price,
+				src: args.src,
+				title: args.title,
+				cartCount: args.cartCount,
 			});
 		}
 	},
 });
 
-// Get cart items for a guest
-export const getCart = query({
-	args: { guestId: v.string() },
-	handler: async (ctx, args) => {
-		const cartItems = await ctx.db
-			.query("cart")
-			.withIndex("by_guest", (q) => q.eq("guestId", args.guestId))
-			.collect();
-
-		// Get full product details for each cart item
-		const itemsWithProducts = await Promise.all(
-			cartItems.map(async (item) => {
-				const product = await ctx.db.get(item.productId);
-				if (!product) return null;
-
-				const imageUrl = product.image
-					? await ctx.storage.getUrl(product.image)
-					: null;
-
-				return {
-					cartItemId: item._id,
-					quantity: item.quantity,
-					product: {
-						...product,
-						imageUrl,
-					},
-				};
-			})
-		);
-
-		return itemsWithProducts.filter((item) => item !== null);
-	},
-});
-
-// Update cart item quantity
-export const updateCartQuantity = mutation({
+export const increaseCartCount = mutation({
 	args: {
-		cartItemId: v.id("cart"),
-		quantity: v.number(),
+		guestId: v.string(),
+		productId: v.string(),
 	},
 	handler: async (ctx, args) => {
-		if (args.quantity <= 0) {
-			// Remove item if quantity is 0 or less
-			await ctx.db.delete(args.cartItemId);
-		} else {
-			await ctx.db.patch(args.cartItemId, {
-				quantity: args.quantity,
-			});
+		const cartItem = await ctx.db
+			.query("cart")
+			.filter((q) =>
+				q.and(
+					q.eq(q.field("guestId"), args.guestId),
+					q.eq(q.field("productId"), args.productId)
+				)
+			)
+			.first();
+
+		if (!cartItem) {
+			toast.error("Cart item not found");
 		}
+
+		await ctx.db.patch(cartItem._id, {
+			cartCount: cartItem.cartCount + 1,
+		});
+
+		return cartItem._id;
 	},
 });
 
-// Remove item from cart
-export const removeFromCart = mutation({
-	args: { cartItemId: v.id("cart") },
-	handler: async (ctx, args) => {
-		await ctx.db.delete(args.cartItemId);
+export const decreaseCartCount = mutation({
+	args: {
+		guestId: v.string(),
+		productId: v.string(),
 	},
-});
-
-// Clear entire cart for a guest
-export const clearCart = mutation({
-	args: { guestId: v.string() },
 	handler: async (ctx, args) => {
-		const cartItems = await ctx.db
+		const cartItem = await ctx.db
 			.query("cart")
-			.withIndex("by_guest", (q) => q.eq("guestId", args.guestId))
-			.collect();
+			.filter((q) =>
+				q.and(
+					q.eq(q.field("guestId"), args.guestId),
+					q.eq(q.field("productId"), args.productId)
+				)
+			)
+			.first();
 
-		await Promise.all(cartItems.map((item) => ctx.db.delete(item._id)));
-	},
-});
+		if (!cartItem) {
+			throw new Error("Cart item not found");
+		}
 
-// Get cart count
-export const getCartCount = query({
-	args: { guestId: v.string() },
-	handler: async (ctx, args) => {
-		const cartItems = await ctx.db
-			.query("cart")
-			.withIndex("by_guest", (q) => q.eq("guestId", args.guestId))
-			.collect();
+		// If count is 1, remove the item from cart
+		if (cartItem.cartCount <= 1) {
+			await ctx.db.delete(cartItem._id);
+			return null;
+		}
 
-		return cartItems.reduce((total, item) => total + item.quantity, 0);
+		// Otherwise, decrease the count
+		await ctx.db.patch(cartItem._id, {
+			cartCount: cartItem.cartCount - 1,
+		});
+
+		return cartItem._id;
 	},
 });
