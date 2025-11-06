@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Logo from "@/app/_components/Logo";
+import Logo from "../_ui/Link";
 import CartButton from "./CartButton";
 
 function Navbar() {
