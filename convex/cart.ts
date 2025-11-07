@@ -116,3 +116,22 @@ export const decreaseCartCount = mutation({
 		return cartItem._id;
 	},
 });
+
+export const emptyCart = mutation({
+	args: {
+		guestId: v.string(),
+	},
+	handler: async (ctx, args) => {
+		const cartItems = await ctx.db
+			.query("cart")
+			.filter((q) => q.eq(q.field("guestId"), args.guestId))
+			.collect();
+
+		// Delete all cart items for this guest
+		for (const item of cartItems) {
+			await ctx.db.delete(item._id);
+		}
+
+		return { deleted: cartItems.length };
+	},
+});

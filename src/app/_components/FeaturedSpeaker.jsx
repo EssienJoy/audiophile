@@ -7,9 +7,6 @@ import Featured from "../_ui/Featured";
 function FeaturedSpeaker() {
 	const speakers = useQuery(api.products.getSpeakers);
 
-	if (!speakers) {
-		return <p>Loading speaker...</p>;
-	}
 
 	return (
 		<>

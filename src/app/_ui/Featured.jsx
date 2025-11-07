@@ -14,7 +14,7 @@ function Featured({
 		<section
 			className={`${className} flex items-center gap-25 justify-between my-[8rem]  max-w-[var(--container-max)] mx-auto px-[var(--spacing-main)] `}>
 			<figure className='w-1/2 h-[560px] relative'>
-				<Image fill src={src} alt={alt} className='object-contain' />
+				<Image fill src={src}  alt={alt} className='object-contain' />
 			</figure>
 
 			<div className='flex flex-col gap-7 w-1/2 '>

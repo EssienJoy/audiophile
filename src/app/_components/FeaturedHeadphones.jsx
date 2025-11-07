@@ -7,10 +7,6 @@ import Featured from "../_ui/Featured";
 function FeaturedHeadphones() {
 	const headPhones = useQuery(api.products.getHeadPhones);
 
-	if (!headPhones) {
-		return <p>Loading headphones...</p>;
-	}
-
 	return (
 		<>
 			{headPhones?.map((headPhone, index) => (

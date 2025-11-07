@@ -32,7 +32,22 @@ export default function RootLayout({ children }) {
 						</CartProvider>
 					</AddtoCartProvider>
 				</ConvexClientProvider>
-				<Toaster />
+				<Toaster
+					position='top-center'
+					gutter={12}
+					containerStyle={{ margin: "8px" }}
+					toastOptions={{
+						success: { duration: 5000 },
+						error: { duration: 5000 },
+						style: {
+							fontSize: "15px",
+							maxWidth: "500px",
+							padding: "16px 24px",
+							backgroundColor: "var(--color-primary-orange)",
+							color: "var(--color-primary-black)",
+						},
+					}}
+				/>
 			</body>
 		</html>
 	);

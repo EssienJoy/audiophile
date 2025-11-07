@@ -7,9 +7,7 @@ import Featured from "../_ui/Featured";
 function FeaturedEarphones() {
 	const earPhones = useQuery(api.products.getEarphones);
 
-	if (!earPhones) {
-		return <p>Loading earphone...</p>;
-	}
+
 
 	return (
 		<>

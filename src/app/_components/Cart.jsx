@@ -4,10 +4,13 @@ import { useCart } from "../_context/CartContext";
 import Link from "../_ui/Link";
 import { getOrCreateGuestId, useAddtoCart } from "../_context/AddtoCartContext";
 import Image from "next/image";
+import { api } from "../../../convex/_generated/api";
+import { useMutation } from "convex/react";
 
 function Cart() {
 	const { cartContainer, cartOverlay, hideCart } = useCart();
 	const { carts, increaseCartCount, decreaseCartCount, total } = useAddtoCart();
+	const emptyCart = useMutation(api.cart.emptyCart);
 
 	return (
 		<>
@@ -22,12 +25,16 @@ function Cart() {
 					<h6 className='uppercase font-bold text-size-h6 tracking-h6 leading-h6'>
 						Cart({carts?.length})
 					</h6>
-					<p>Remove all</p>
+					<button onClick={() => emptyCart({ guestId: getOrCreateGuestId() })}>
+						Remove all
+					</button>
 				</div>
 
 				<div className='h-[240px]  overflow-x-hidden overflow-y-scroll flex flex-col gap-5 '>
 					{!carts || carts.length === 0 ? (
-						<p className='h-full grid place-items-center font-bold'>Your Cart is Empty</p>
+						<p className='h-full grid place-items-center font-bold'>
+							Your Cart is Empty
+						</p>
 					) : (
 						carts.map((cart) => (
 							<div
@@ -46,7 +53,7 @@ function Cart() {
 									<p className='font-bold'>
 										{cart.title.split(" ").slice(0, 2).join(" ")}
 									</p>
-									<p>$ {cart.price}</p>
+									<p>$ {cart.price * cart.cartCount}</p>
 								</div>
 
 								<div className='b flex  h-[32px]  gap-2 items-center  bg-primary-grey'>
