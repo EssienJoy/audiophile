@@ -1,6 +1,6 @@
 import Link from "next/link";
-import Logo from "../_ui/Link";
 import CartButton from "./CartButton";
+import Logo from "./Logo";
 
 function Navbar() {
 	return (
