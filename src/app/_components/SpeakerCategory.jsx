@@ -5,7 +5,7 @@ import speaker from '../../../public/images/speaker.png';
 function SpeakerCategory() {
     return (
 			<section className='px-[var(--spacing-main)]  max-w-[var(--container-max)] mx-auto '>
-				<div className='flex flex-col md:flex-row items-center h-dvh gap-[3rem] md:gap-[5rem] rounded-lg my-10 bg-primary-orange py-5 px-2 md:py-0'>
+				<div className='flex flex-col md:flex-row items-center sm:h-dvh gap-[3rem] md:gap-[5rem] rounded-lg my-10 bg-primary-orange py-5 px-2 md:py-0'>
 					<div className='relative w-[198px] h-[237px]  md:w-[60%]  md:h-[493px] md:self-end'>
 						<Image
 							src={speaker}

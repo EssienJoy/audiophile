@@ -20,7 +20,7 @@ function Cart() {
 				onClick={hideCart}></div>
 			<section
 				ref={cartContainer}
-				className='cart-container hide flex flex-col gap-5 bg-primary-white rounded-lg w-[377px] absolute top-25 right-25 p-5 z-100'>
+				className='cart-container hide flex flex-col gap-5 bg-primary-white rounded-lg w-[327px] sm:w-[377px] absolute top-25 right-5 md:right-25 p-5 z-100'>
 				<div className='flex items-center justify-between'>
 					<h6 className='uppercase font-bold text-size-h6 tracking-h6 leading-h6'>
 						Cart({carts?.length})
