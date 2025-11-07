@@ -18,7 +18,8 @@ function FeaturedHeadphones() {
 					title={headPhone.name}
 					text={headPhone.description}
 					productId={headPhone._id}
-					className={`${index % 2 !== 0 ? "flex-row-reverse" : ""}`}
+					index={index}
+				
 				/>
 			))}
 		</>

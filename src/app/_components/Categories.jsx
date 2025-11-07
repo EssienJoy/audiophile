@@ -24,12 +24,13 @@ const categories = [
 
 function Categories() {
 	return (
-		<section className=' my-[7rem] md:my-[10rem] grid sm:grid-cols-3 gap-15 sm:gap-5 px-[var(--spacing-main)] max-w-[var(--container-max)] mx-auto'>
+		<section
+			className=' my-[7rem] md:my-[10rem] grid grid-cols-[327px] sm:grid-cols-3 gap-15 sm:gap-5 px-[var(--spacing-main)] max-w-[var(--container-max)] mx-auto'>
 			{categories.map((category) => (
 				<div
 					key={category.text}
-					className='h-[165px]  sm:h-[200px]  flex flex-col items-center justify-center  bg-primary-grey rounded-lg overflow-visible'>
-					<figure className='relative w-full h-[160px]  '>
+					className='h-[165px]   sm:h-[200px]  flex flex-col items-center justify-center  bg-primary-grey rounded-lg overflow-visible'>
+					<figure className='relative w-full h-[160px]  mx-auto'>
 						<Image
 							src={category.src}
 							fill
@@ -39,7 +40,7 @@ function Categories() {
 						/>
 					</figure>
 
-					<div className="pb-5 flex flex-col gap-1">
+					<div className='pb-5 flex flex-col gap-1'>
 						<p className='font-bold sm:text-lg tracking-[1.29px] uppercase'>
 							{category.text}
 						</p>

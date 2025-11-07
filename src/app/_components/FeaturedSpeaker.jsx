@@ -7,7 +7,6 @@ import Featured from "../_ui/Featured";
 function FeaturedSpeaker() {
 	const speakers = useQuery(api.products.getSpeakers);
 
-
 	return (
 		<>
 			{speakers?.map((speaker, index) => (
@@ -19,7 +18,8 @@ function FeaturedSpeaker() {
 					title={speaker.name}
 					text={speaker.description}
 					productId={speaker._id}
-					className={`${index % 2 !== 0 ? "flex-row-reverse" : ""}`}
+					index={index}
+					
 				/>
 			))}
 		</>

@@ -7,8 +7,6 @@ import Featured from "../_ui/Featured";
 function FeaturedEarphones() {
 	const earPhones = useQuery(api.products.getEarphones);
 
-
-
 	return (
 		<>
 			{earPhones?.map((earPhone, index) => (
@@ -20,7 +18,8 @@ function FeaturedEarphones() {
 					title={earPhone.name}
 					text={earPhone.description}
 					productId={earPhone._id}
-					className={`${index % 2 !== 0 ? "flex-row-reverse" : ""}`}
+					index={index}
+					
 				/>
 			))}
 		</>
