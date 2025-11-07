@@ -21,6 +21,7 @@ function Detail({
 
 	const handleAddToCart = async () => {
 		try {
+			if (cartQty === 0) return;
 			setLoading(true);
 
 			await addToCart({

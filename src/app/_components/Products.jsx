@@ -15,7 +15,7 @@ function Products() {
 					className='object-cover absolute'
 				/>
 
-				<div className=' flex items-center justify-center z-100 relative bg-[#DBDBDB] h-full w-[35%] '>
+				<div className=' flex items-center justify-center z-100 relative bg-[#DBDBDB] h-full  sm:w-[50%] '>
 					<div className='flex flex-col  gap-6  '>
 						<h4 className='text-size-h4 leading-h4 tracking-[2px] font-bold uppercase'>
 							zx7 speaker
@@ -25,14 +25,14 @@ function Products() {
 							textColor='text-primary-black'
 							href='/product-details/jh7888b7ncw5jc559yf3g0nqzh7tsn3m'
 							bgColor='bg-transparent'
-							className='border border-solid border-primary-black self-start'>
+							className='border border-solid border-primary-black self-start hover:bg-primary-black hover:text-primary-white'>
 							SEE PRODUCT
 						</Link>
 					</div>
 				</div>
 			</section>
 
-			<section className='grid grid-cols-2 gap-5 rounded-md'>
+			<section className='grid sm:grid-cols-2 gap-5 rounded-md'>
 				<div className='relative rounded-md h-[320px]'>
 					<Image
 						src={earphones}
@@ -44,7 +44,7 @@ function Products() {
 				</div>
 
 				<div className='bg-primary-grey flex items-center justify-center '>
-					<div className='flex flex-col gap-6'>
+					<div className='flex flex-col gap-6 py-20'>
 						<h4 className='text-size-h4 leading-h4 tracking-[2px] font-bold'>
 							YX1 EARPHONES
 						</h4>
@@ -53,7 +53,7 @@ function Products() {
 							textColor='text-primary-black'
 							href='/product-details/jh78m8qatwr25qktg9c3z4ebv97trgv2'
 							bgColor='bg-transparent'
-							className='border border-solid border-primary-black self-start'>
+							className='border border-solid border-primary-black self-start hover:bg-primary-black hover:text-primary-white'>
 							SEE PRODUCT
 						</Link>
 					</div>

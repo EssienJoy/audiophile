@@ -25,7 +25,7 @@ function Cart() {
 					<h6 className='uppercase font-bold text-size-h6 tracking-h6 leading-h6'>
 						Cart({carts?.length})
 					</h6>
-					<button onClick={() => emptyCart({ guestId: getOrCreateGuestId() })}>
+					<button className="hover:text-primary-orange" onClick={() => emptyCart({ guestId: getOrCreateGuestId() })}>
 						Remove all
 					</button>
 				</div>
@@ -118,7 +118,8 @@ function Cart() {
 				<Link
 					bgColor='bg-primary-orange'
 					text-color='text-primary-white'
-					href='/checkout'>
+					href='/checkout'
+					className="hover:bg-secondary-orange">
 					checkout
 				</Link>
 			</section>

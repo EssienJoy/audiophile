@@ -43,8 +43,8 @@ export default function RootLayout({ children }) {
 							fontSize: "15px",
 							maxWidth: "500px",
 							padding: "16px 24px",
-							backgroundColor: "var(--color-primary-orange)",
-							color: "var(--color-primary-black)",
+							backgroundColor: "var(--color-primary-black)",
+							color: "var(--color-primary-white)",
 						},
 					}}
 				/>
