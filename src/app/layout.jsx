@@ -7,6 +7,8 @@ import { CartProvider } from "./_context/CartContext";
 import { AddtoCartProvider } from "./_context/AddtoCartContext";
 import { Toaster } from "react-hot-toast";
 import { ConvexClientProvider } from "./ConvexClientProvider";
+import MobileNav from "./_components/MobileNav";
+import { ToggleProvider } from "./_context/ToggleMenuContext";
 
 const manrope = Manrope({
 	subsets: ["latin"],
@@ -25,10 +27,13 @@ export default function RootLayout({ children }) {
 				<ConvexClientProvider>
 					<AddtoCartProvider>
 						<CartProvider>
-							<Navbar />
-							<Cart />
-							<main>{children}</main>
-							<Footer />
+							<ToggleProvider>
+								<MobileNav />
+								<Navbar />
+								<Cart />
+								<main>{children}</main>
+								<Footer />
+							</ToggleProvider>
 						</CartProvider>
 					</AddtoCartProvider>
 				</ConvexClientProvider>

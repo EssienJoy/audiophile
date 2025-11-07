@@ -1,18 +1,20 @@
+"use client";
+
 import Link from "next/link";
-import CartButton from "./CartButton";
-import Logo from "./Logo";
-import HamburgerMenu from "./HamburgerMenu";
+import { useToggle } from "../_context/ToggleMenuContext";
 
-function Navbar() {
+function MobileNav() {
+	const { toggleMenu, toggleMenuFalse } = useToggle();
 	return (
-		<header className='bg-secondary-black '>
-			<div className='max-w-[var(--container-max)] mx-auto px-[var(--spacing-main)]'>
-				<div className='py-5 border-b border-solid border-b-primary-white flex justify-between items-center text-primary-white '>
-					<HamburgerMenu />
-					<Logo />
-
-					<nav className='hidden md:block'>
-						<ul className='flex items-center gap-5'>
+		<>
+			{toggleMenu && (
+				<>
+					<div
+						
+						className=' fixed inset-0 bg-black/50 z-[40] '
+						onClick={toggleMenuFalse}></div>
+					<nav className='py-10 block absolute md:hidden bg-primary-white top-10 right-5 w-[90%] sm:w-1/2 text-primary-black rounded-md z-50'>
+						<ul className='flex flex-col items-center gap-5 '>
 							<li>
 								<Link className='hover:text-primary-orange' href='/'>
 									HOME
@@ -41,11 +43,10 @@ function Navbar() {
 							</li>
 						</ul>
 					</nav>
-					<CartButton />
-				</div>
-			</div>
-		</header>
+				</>
+			)}
+		</>
 	);
 }
 
-export default Navbar;
+export default MobileNav;
