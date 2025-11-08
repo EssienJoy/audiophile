@@ -1,7 +1,7 @@
 import Image from "next/image";
 import bg from "../../../public/images/hero-bg.png";
-import tablet from '../../../public/images/tablet-hero.png'
-import mobile from '../../../public/images/mobile-hero.png'
+import tablet from "../../../public/images/tablet-hero.png";
+import mobile from "../../../public/images/mobile-hero.png";
 import Link from "../_ui/Link";
 
 function Home() {
@@ -18,14 +18,15 @@ function Home() {
 				src={tablet}
 				fill
 				quality={100}
-				className='object-cover hidden sm:block object-bottom '
+				className='object-cover hidden sm:block md:hidden'
 				alt='HEADPHONES'
 			/>
-			<Image
+
+			 <Image
 				src={mobile}
 				fill
 				quality={100}
-				className='object-cover sm:hidden object-bottom '
+				className='object-cover block sm:hidden '
 				alt='HEADPHONES'
 			/>
 

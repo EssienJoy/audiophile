@@ -1,5 +1,5 @@
 import Image from "next/image";
-import speaker from "../../../public/images/Group 17.png";
+import speaker from "../../../public/images/speaker-bg.png";
 import earphones from "../../../public/images/earphones.png";
 import Link from "../_ui/Link";
 
@@ -12,10 +12,10 @@ function Products() {
 					fill
 					quality={100}
 					alt='Speaker'
-					className='object-cover absolute'
+					className='object-cover  absolute '
 				/>
 
-				<div className=' flex items-center justify-center z-100 relative bg-[#DBDBDB] h-full  sm:w-[50%] '>
+				<div className='bg-[#E0E0E0] flex items-center justify-center  z-50 relative  h-full  sm:w-[50%] '>
 					<div className='flex flex-col  gap-6  '>
 						<h4 className='text-size-h4 leading-h4 tracking-[2px] font-bold uppercase'>
 							zx7 speaker
