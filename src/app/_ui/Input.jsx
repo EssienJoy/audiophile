@@ -1,9 +1,9 @@
-function Input({ type, defaulltVailue, className = "" }) {
+function Input({ type, defaultValue, className = "" }) {
 	return (
 		<input
 			type={type}
-			defaultValue={defaulltVailue}
-			className={`${className} py-2 px-4 text-primary-black border border-[#CFCFCF] border-solid rounded-lg active:border-primary-orange`}
+			defaultValue={defaultValue}
+			className={`${className} py-2 px-4 text-primary-black border border-[#CFCFCF] border-solid rounded-lg focus:border-primary-orange focus:border-2 focus:outline-none`}
 		/>
 	);
 }

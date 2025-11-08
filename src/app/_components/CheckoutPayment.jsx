@@ -7,8 +7,10 @@ import CheckoutCart from "./CheckoutCart";
 function CheckoutPayment() {
 	const { total } = useAddtoCart();
 	return (
-		<section className=' bg-primary-white rounded-lg p-5 w-[30%] flex flex-col gap-5'>
-			<h2 className='text-2xl tracking-h2 leading-h2 font-bold'>summary</h2>
+		<section className=' bg-primary-white rounded-lg p-5 w-full md:w-[40%] flex flex-col gap-5'>
+			<h2 className='text-[28px] sm:text-2xl tracking-h2 leading-h2 font-bold'>
+				summary
+			</h2>
 			<CheckoutCart />
 
 			<section>
@@ -29,7 +31,7 @@ function CheckoutPayment() {
 
 				<div className='flex justify-between  mt-7'>
 					<p>GRAND TOTAL</p>
-					<p className='font-bold'>{total + 50}</p>
+					<p className='font-bold'>${total + 50}</p>
 				</div>
 			</section>
 
