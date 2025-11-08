@@ -5,7 +5,7 @@ import { useQuery } from "convex/react";
 import { createContext, useContext, useEffect, useState } from "react";
 import { api } from "../../../convex/_generated/api";
 
-export function getOrCreateGuestId() {
+function getOrCreateGuestId() {
 	if (typeof window === "undefined") return "";
 
 	let guestId = localStorage.getItem("guestId");
@@ -59,6 +59,7 @@ function AddtoCartProvider({ children }) {
 				setCartQty,
 				increaseCartCount,
 				decreaseCartCount,
+				guestId,
 				total
 			}}>
 			{children}

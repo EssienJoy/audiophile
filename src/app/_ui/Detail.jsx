@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Button from "./Button";
-import { getOrCreateGuestId, useAddtoCart } from "../_context/AddtoCartContext";
+import { useAddtoCart } from "../_context/AddtoCartContext";
 import { useState } from "react";
 import toast from "react-hot-toast";
 
@@ -16,7 +16,7 @@ function Detail({
 	price ,
 }) {
 	const [loading, setLoading] = useState(false);
-	const { cartQty, increaseCartQty, decreaseCartQty, addToCart, setCartQty } =
+	const { cartQty, increaseCartQty, decreaseCartQty, addToCart, setCartQty,guestId } =
 		useAddtoCart();
 
 	const handleAddToCart = async () => {
@@ -25,7 +25,7 @@ function Detail({
 			setLoading(true);
 
 			await addToCart({
-				guestId: getOrCreateGuestId(),
+				guestId,
 				productId: productId,
 				price: price,
 				cartCount: cartQty,

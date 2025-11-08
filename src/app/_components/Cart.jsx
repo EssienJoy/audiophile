@@ -2,14 +2,16 @@
 
 import { useCart } from "../_context/CartContext";
 import Link from "../_ui/Link";
-import { getOrCreateGuestId, useAddtoCart } from "../_context/AddtoCartContext";
+import { useAddtoCart } from "../_context/AddtoCartContext";
 import Image from "next/image";
 import { api } from "../../../convex/_generated/api";
 import { useMutation } from "convex/react";
+import toast from "react-hot-toast";
 
 function Cart() {
 	const { cartContainer, cartOverlay, hideCart } = useCart();
-	const { carts, increaseCartCount, decreaseCartCount, total } = useAddtoCart();
+	const { carts, increaseCartCount, decreaseCartCount, total, guestId } =
+		useAddtoCart();
 	const emptyCart = useMutation(api.cart.emptyCart);
 
 	return (
@@ -25,7 +27,17 @@ function Cart() {
 					<h6 className='uppercase font-bold text-size-h6 tracking-h6 leading-h6'>
 						Cart({carts?.length || 0})
 					</h6>
-					<button className="hover:text-primary-orange" onClick={() => emptyCart({ guestId: getOrCreateGuestId() })}>
+					<button
+						className='hover:text-primary-orange'
+						onClick={async () => {
+							if (carts.length === 0) return;
+							try {
+								await emptyCart({ guestId });
+								toast.success("Cart Cleared Successfully ✅");
+							} catch (error) {
+								toast.error("Failed to clear cart ❌");
+							}
+						}}>
 						Remove all
 					</button>
 				</div>
@@ -60,10 +72,20 @@ function Cart() {
 									<button
 										className='p-2'
 										onClick={async () => {
-											await decreaseCartCount({
-												guestId: getOrCreateGuestId(),
-												productId: cart.productId,
-											});
+											try {
+												const result = await decreaseCartCount({
+													guestId,
+													productId: cart.productId,
+												});
+
+												console.log("Decrease result:", result);
+
+												if (result?.deleted) {
+													toast.success("Item Removed Successfully ✅");
+												}
+											} catch (error) {
+												toast.error("Failed to update cart ❌");
+											}
 										}}>
 										<svg
 											width='4'
@@ -84,10 +106,14 @@ function Cart() {
 									<button
 										className='p-2'
 										onClick={async () => {
-											await increaseCartCount({
-												guestId: getOrCreateGuestId(),
-												productId: cart.productId,
-											});
+											try {
+												await increaseCartCount({
+													guestId,
+													productId: cart.productId,
+												});
+											} catch (error) {
+												toast.error("Failed to update cart ❌");
+											}
 										}}>
 										<svg
 											width='6'
@@ -119,7 +145,7 @@ function Cart() {
 					bgColor='bg-primary-orange'
 					text-color='text-primary-white'
 					href='/checkout'
-					className="hover:bg-secondary-orange">
+					className='hover:bg-secondary-orange'>
 					checkout
 				</Link>
 			</section>

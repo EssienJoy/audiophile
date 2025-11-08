@@ -1,6 +1,5 @@
 import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
-import toast from "react-hot-toast";
 
 export const getUserCartByGuestId = query({
 	args: { guestId: v.string() },
@@ -71,7 +70,7 @@ export const increaseCartCount = mutation({
 			.first();
 
 		if (!cartItem) {
-			toast.error("Cart item not found");
+			throw new Error("Cart item not found");
 		}
 
 		await ctx.db.patch(cartItem._id, {
@@ -81,7 +80,6 @@ export const increaseCartCount = mutation({
 		return cartItem._id;
 	},
 });
-
 export const decreaseCartCount = mutation({
 	args: {
 		guestId: v.string(),
@@ -99,23 +97,21 @@ export const decreaseCartCount = mutation({
 			.first();
 
 		if (!cartItem) {
-			toast.error("Cart item not found ❌");
+			throw new Error("Cart item not found");
 		}
 
 		if (cartItem.cartCount <= 1) {
 			await ctx.db.delete(cartItem._id);
-			toast.success('Item Removed Successfully ✅')
-			return null;
+			return { deleted: true }; 
 		}
 
 		await ctx.db.patch(cartItem._id, {
 			cartCount: cartItem.cartCount - 1,
 		});
 
-		return cartItem._id;
+		return { deleted: false, _id: cartItem._id }; 
 	},
 });
-
 export const emptyCart = mutation({
 	args: {
 		guestId: v.string(),
@@ -129,9 +125,5 @@ export const emptyCart = mutation({
 		for (const item of cartItems) {
 			await ctx.db.delete(item._id);
 		}
-
-		toast.success('Cart Cleared Successfully ✅')
-
-		// return { deleted: cartItems.length };
 	},
 });
