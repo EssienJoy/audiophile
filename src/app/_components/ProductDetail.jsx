@@ -18,9 +18,9 @@ function ProductDetail({ productId }) {
 	});
 
 	if (!product || !products) return;
-	<div className='spinner h-dvh grid place-items-center'></div>;
+	<div className='spinner grid place-items-center'></div>;
 	return (
-		<section className='my-10 max-w-[var(--container-max)] mx-auto px-[var(--spacing-main)] '>
+		<section className='my-5 sm:my-10 max-w-[var(--container-max)] mx-auto px-[var(--spacing-main)] '>
 			<Button
 				onClick={() => router.back()}
 				bgColor='bg-transparent'
@@ -39,7 +39,7 @@ function ProductDetail({ productId }) {
 				price={product.price}
 			/>
 
-			<section className='flex flex-col md:flex-row gap-[5rem]'>
+			<section className='flex flex-col md:flex-row gap-[5rem] my-10'>
 				<div className='md:w-1/2 space-y-5'>
 					<h3 className='text-[24px] sm:text-size-h3 leading-h3 tracking-h3 uppercase '>
 						Features

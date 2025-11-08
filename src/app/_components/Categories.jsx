@@ -28,7 +28,7 @@ function Categories() {
 			{categories.map((category) => (
 				<div
 					key={category.text}
-					className='h-[165px] sm:h-[200px] max-w-[327px] mx-auto w-full flex flex-col items-center justify-center bg-primary-grey rounded-lg overflow-visible hover:cursor-pointer transition-transform duration-300 hover:scale-105'>
+					className='h-[165px] sm:h-[200px] max-w-[327px] mx-auto w-full flex flex-col items-center justify-center bg-primary-grey rounded-lg '>
 					<figure className='relative w-full h-[160px] mx-auto'>
 						<Image
 							src={category.src}

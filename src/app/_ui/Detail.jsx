@@ -43,9 +43,9 @@ function Detail({
 	};
 	return (
 		<section
-			className={`${className} flex flex-col sm:flex-row items-center gap-25 justify-between my-[1rem]  max-w-[var(--container-max)] mx-auto px-[var(--spacing-main)] `}>
-			<figure className='w-full sm:w-1/2 h-[560px] relative'>
-				<Image fill src={src} alt={alt} className='object-contain' />
+			className={`${className} flex flex-col sm:flex-row items-center gap-10  md:gap-25 justify-between my-[1rem]  max-w-[var(--container-max)] mx-auto px-[var(--spacing-main)] `}>
+			<figure className='w-full sm:w-1/2 h-[327px] sm:h-[480px] md:h-[560px] relative'>
+				<Image fill src={src} alt={alt} className='object-contain sm:object-cover md:object-contain' />
 			</figure>
 
 			<div className='flex flex-col gap-7 sm:w-1/2 '>
