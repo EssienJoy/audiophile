@@ -13,7 +13,7 @@ function Home() {
 				alt='HEADPHONES'
 			/>
 
-			<section className='border border-solid border-t-primary-white max-w-[var(--container-max)] mx-auto h-full flex items-center relative z-10 px-[var(--spacing-main)] '>
+			<section className='border-t border-solid border-t-primary-white max-w-[var(--container-max)] mx-auto h-full flex items-center relative z-10 px-[var(--spacing-main)] '>
 				<div className='flex flex-col items-center md:items-start w-full gap-5 sm:gap-7 md:w-[50%]    text-primary-white '>
 					<p className='text-sm tracking-[10px]  font-normal text-center md:text-left'>
 						NEW PRODUCT
