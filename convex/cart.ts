@@ -99,16 +99,15 @@ export const decreaseCartCount = mutation({
 			.first();
 
 		if (!cartItem) {
-			throw new Error("Cart item not found");
+			toast.error("Cart item not found ❌");
 		}
 
-		// If count is 1, remove the item from cart
 		if (cartItem.cartCount <= 1) {
 			await ctx.db.delete(cartItem._id);
+			toast.success('Item Removed Successfully ✅')
 			return null;
 		}
 
-		// Otherwise, decrease the count
 		await ctx.db.patch(cartItem._id, {
 			cartCount: cartItem.cartCount - 1,
 		});
@@ -127,11 +126,12 @@ export const emptyCart = mutation({
 			.filter((q) => q.eq(q.field("guestId"), args.guestId))
 			.collect();
 
-		// Delete all cart items for this guest
 		for (const item of cartItems) {
 			await ctx.db.delete(item._id);
 		}
 
-		return { deleted: cartItems.length };
+		toast.success('Cart Cleared Successfully ✅')
+
+		// return { deleted: cartItems.length };
 	},
 });
