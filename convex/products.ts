@@ -68,9 +68,18 @@ export const getProductById = query({
 			? await ctx.storage.getUrl(product.image)
 			: null;
 
+		const imageSlideUrls = product.imageSlides
+			? await Promise.all(
+					product.imageSlides.map((storageId: string) =>
+						ctx.storage.getUrl(storageId)
+					)
+				)
+			: [];
+
 		return {
 			...product,
 			imageUrl,
+			imageSlideUrls,
 		};
 	},
 });
