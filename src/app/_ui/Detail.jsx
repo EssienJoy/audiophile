@@ -6,14 +6,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 function Detail({
-	src,
+	src ,
 	alt,
 	newProduct,
-	title,
-	text,
-	className = "",
+	title ,
+	text ,
+	className ,
 	productId,
-	price,
+	price ,
 }) {
 	const [loading, setLoading] = useState(false);
 	const { cartQty, increaseCartQty, decreaseCartQty, addToCart, setCartQty } =
@@ -43,12 +43,12 @@ function Detail({
 	};
 	return (
 		<section
-			className={`${className} flex items-center gap-25 justify-between my-[1rem]  max-w-[var(--container-max)] mx-auto px-[var(--spacing-main)] `}>
-			<figure className='w-1/2 h-[560px] relative'>
+			className={`${className} flex flex-col sm:flex-row items-center gap-25 justify-between my-[1rem]  max-w-[var(--container-max)] mx-auto px-[var(--spacing-main)] `}>
+			<figure className='w-full sm:w-1/2 h-[560px] relative'>
 				<Image fill src={src} alt={alt} className='object-contain' />
 			</figure>
 
-			<div className='flex flex-col gap-7 w-1/2 '>
+			<div className='flex flex-col gap-7 sm:w-1/2 '>
 				{newProduct && (
 					<p className='text-sm tracking-[10px]  font-normal text-primary-orange'>
 						NEW PRODUCT
