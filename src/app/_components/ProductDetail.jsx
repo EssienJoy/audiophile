@@ -17,8 +17,8 @@ function ProductDetail({ productId }) {
 		id: productId,
 	});
 
-	
-
+	if (!product || !products) return;
+	<div className='spinner h-dvh grid place-items-center'></div>;
 	return (
 		<section className='my-10 max-w-[var(--container-max)] mx-auto px-[var(--spacing-main)] '>
 			<Button
