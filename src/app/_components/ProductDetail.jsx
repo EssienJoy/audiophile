@@ -1,26 +1,18 @@
 "use client";
-
-import { useQuery } from "convex/react";
-import { api } from "../../../convex/_generated/api";
+import { usePreloadedQuery } from "convex/react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import Button from "../_ui/Button";
 import Detail from "../_ui/Detail";
-import Image from "next/image";
-import Link from "../_ui/Link";
 
-function ProductDetail({ productId }) {
+function ProductDetail({ productDetail }) {
 	const router = useRouter();
-	const products = useQuery(api.products.getAllProducts);
 
-	const product = useQuery(api.products.getProductById, {
-		id: productId,
-	});
+	const product = usePreloadedQuery(productDetail);
 
-	if (!product || !products) return;
-	<div className='spinner grid place-items-center'></div>;
 	return (
-		<section className='my-5 sm:my-10 max-w-[var(--container-max)] mx-auto px-[var(--spacing-main)] '>
+		<section>
 			<Button
 				onClick={() => router.back()}
 				bgColor='bg-transparent'
@@ -79,39 +71,6 @@ function ProductDetail({ productId }) {
 						</figure>
 					);
 				})}
-			</section>
-
-			<section className='mt-20'>
-				<h3 className=' text-[24px] sm:text-size-h3 leading-h3 tracking-h3 uppercase text-center mb-5 md:mb-10'>
-					you may also like
-				</h3>
-
-				<section className='grid sm:grid-cols-3 gap-10 sm:gap-5'>
-					{products?.map((product) => (
-						<div key={product._id} className='flex flex-col gap-5'>
-							<figure className='relative h-[318px] w-full'>
-								<Image
-									fill
-									alt={product.name}
-									src={product.imageUrl}
-									className='object-cover sm:object-contain'
-								/>
-							</figure>
-
-							<p className='text-center text-sm leading-h5 tracking-h5 font-bold uppercase'>
-								{product.name.split(" ").slice(0, 2).join(" ")}
-							</p>
-
-							<Link
-								bgColor='bg-primary-orange'
-								textColor='text-primary-white'
-								href={`/product-details/${product?._id}`}
-								className='uppercase hover:bg-secondary-orange self-center'>
-								See Product
-							</Link>
-						</div>
-					))}
-				</section>
 			</section>
 		</section>
 	);

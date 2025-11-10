@@ -24,19 +24,21 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang='en'>
 			<body className={` ${manrope.className} antialiased relative`}>
-				<ConvexClientProvider>
-					<AddtoCartProvider>
-						<CartProvider>
-							<ToggleProvider>
-								<MobileNav />
-								<Navbar />
-								<Cart />
-								<main>{children}</main>
-								<Footer />
-							</ToggleProvider>
-						</CartProvider>
-					</AddtoCartProvider>
-				</ConvexClientProvider>
+				<main>
+					<ToggleProvider>
+						<ConvexClientProvider>
+							<AddtoCartProvider>
+								<CartProvider>
+									<Navbar />
+									<MobileNav />
+									<Cart />
+									{children}
+								</CartProvider>
+							</AddtoCartProvider>
+						</ConvexClientProvider>
+					</ToggleProvider>
+				</main>
+				<Footer />
 				<Toaster
 					position='top-center'
 					gutter={12}

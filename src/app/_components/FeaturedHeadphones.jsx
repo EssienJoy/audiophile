@@ -1,11 +1,11 @@
-"use client";
+"use cache";
 
-import { useQuery } from "convex/react";
+import { fetchQuery } from "convex/nextjs";
 import { api } from "../../../convex/_generated/api";
 import Featured from "../_ui/Featured";
 
-function FeaturedHeadphones() {
-	const headPhones = useQuery(api.products.getHeadPhones);
+async function FeaturedHeadphones() {
+	const headPhones = await fetchQuery(api.products.getHeadPhones);
 
 	return (
 		<>
@@ -19,7 +19,6 @@ function FeaturedHeadphones() {
 					text={headPhone.description}
 					productId={headPhone._id}
 					index={index}
-				
 				/>
 			))}
 		</>
